@@ -45,13 +45,13 @@
 #define	CMD_POWER_DOWN	    0x11	//	Power down device.
 
 #define	CMD_SET_PROPERTY	0x12	//	Sets the value of a property.
-#define	CMD_GET_PROPERTY	0x13	//	Retrieves a property’s value.
+#define	CMD_GET_PROPERTY	0x13	//	Retrieves a propertyï¿½s value.
 #define	CMD_GET_INT_STATUS	0x14	//	Reads interrupt status bits.
 #define	CMD_GET_INT_STATUS_CTS	0x80	//	CTS flag in status
 
 
-#define	CMD_PATCH_ARGS*	    0x15	//	Reserved command used for patch file downloads.
-#define	CMD_PATCH_DATA*	    0x16	//	Reserved command used for patch file downloads.
+#define	CMD_PATCH_ARGS	    0x15	//	Reserved command used for patch file downloads.
+#define	CMD_PATCH_DATA	    0x16	//	Reserved command used for patch file downloads.
 #define	CMD_FM_TUNE_FREQ	0x20	//	Selects the FM tuning frequency.
 #define	CMD_FM_SEEK_START	0x21	//	Begins searching for a valid frequency.
 #define	CMD_FM_TUNE_STATUS	0x22	//	Queries the status of previous FM_TUNE_FREQ or FM_SEEK_START command.
@@ -96,7 +96,7 @@
 #define FM_SOFT_MUTE_ATTACK_RATE     0x1305
 
 #define PROP_FM_SEEK_FREQ_SPACING   0x1402
-#define FM_SEEK_TUNE_SNR_THRESHOLD  0x1403 
+#define FM_SEEK_TUNE_SNR_THRESHOLD  0x1403
 #define FM_SEEK_TUNE_RSSI_TRESHOLD  0x1404
 
 #define PROP_RDS_INTERRUPT_SOURCE         0x1500
@@ -108,13 +108,13 @@
 
 #define PROP_RX_VOLUME 0x4000
 
-#define PROP_FM_BLEND_RSSI_STEREO_THRESHOLD 0x1800 
+#define PROP_FM_BLEND_RSSI_STEREO_THRESHOLD 0x1800
 #define PROP_FM_BLEND_RSSI_MONO_THRESHOLD   0x1801
 
-#define PROP_RX_HARD_MUTE       0x4001 
-#define PROP_RX_HARD_MUTE_RIGHT 0x01 
-#define PROP_RX_HARD_MUTE_LEFT  0x02 
-#define PROP_RX_HARD_MUTE_BOTH  0x03 
+#define PROP_RX_HARD_MUTE       0x4001
+#define PROP_RX_HARD_MUTE_RIGHT 0x01
+#define PROP_RX_HARD_MUTE_LEFT  0x02
+#define PROP_RX_HARD_MUTE_BOTH  0x03
 
 // ----- implement
 
@@ -241,7 +241,7 @@ void SI4705::setSoftMute(bool switchOn) {
     // to enable the softmute mode the attenuation is set to 0x10.
     _setProperty(FM_SOFT_MUTE_MAX_ATTENUATION, 0x14);
   } else {
-    // to disable the softmute mode the attenuation is set to 0.  
+    // to disable the softmute mode the attenuation is set to 0.
     _setProperty(FM_SOFT_MUTE_MAX_ATTENUATION, 0x00);
   }
 } // setSoftMute()
@@ -283,7 +283,7 @@ void SI4705::setMono(bool switchOn)
 /// @return void
 void SI4705::setBand(RADIO_BAND newBand) {
   if (newBand == RADIO_BAND_FM) {
-    // set band boundaries and steps 
+    // set band boundaries and steps
     RADIO::setBand(newBand);
 
     // powering up in FM mode, analog outputs, crystal oscillator, GPO2 enabled for interrupts.
@@ -406,7 +406,7 @@ void SI4705::_readStatusData(uint8_t cmd, uint8_t param, uint8_t *values, uint8_
   Wire.requestFrom(SI4705_ADR, (int)len); //We want to read some bytes.
 
   for (uint8_t n = 0; n < len; n++) {
-    //Read in these bytes   
+    //Read in these bytes
     values[n] = Wire.read();
   } // for
 } // _readStatusData()
@@ -442,7 +442,7 @@ void SI4705::checkRDS()
 {
   if (_sendRDS) {
     // fetch the interrupt status first
-    uint8_t status = _readStatus();
+    // uint8_t status = _readStatus();
 
     // fetch the current RDS data
     _readStatusData(CMD_FM_RDS_STATUS, 0x01, rdsStatus.buffer, sizeof(rdsStatus));
@@ -495,7 +495,7 @@ void SI4705::debugStatus()
 
   Serial.print("RDS-Status: ");
   _readStatusData(CMD_FM_RDS_STATUS, 0x01, rdsStatus.buffer, sizeof(rdsStatus));
-  for (uint8_t n = 0; n < 12; n++) {
+  for (uint8_t n = 0; n < 8; n++) {
     Serial.print(rsqStatus[n], HEX); Serial.print(' ');
   } // for
   Serial.println();
@@ -566,5 +566,3 @@ void SI4705::_setProperty(uint16_t prop, uint16_t value) {
 // ----- internal functions -----
 
 // The End.
-
-

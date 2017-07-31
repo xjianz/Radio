@@ -54,7 +54,7 @@ void RDSParser::processData(uint16_t block1, uint16_t block2, uint16_t block3, u
   // DEBUG_FUNC0("process");
   uint8_t  idx; // index of rdsText
   char c1, c2;
-  char *p;
+  // char *p;
 
   uint16_t mins; ///< RDS time in minutes
   uint8_t off;   ///< RDS time offset and sign
@@ -78,7 +78,7 @@ void RDSParser::processData(uint16_t block1, uint16_t block2, uint16_t block3, u
   switch (rdsGroupType) {
   case 0x0A:
   case 0x0B:
-    // The data received is part of the Service Station Name 
+    // The data received is part of the Service Station Name
     idx = 2 * (block2 & 0x0003);
 
     // new data is 2 chars from block 4

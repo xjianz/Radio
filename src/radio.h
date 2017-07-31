@@ -34,7 +34,7 @@
 
 /// \mainpage
 /// An Arduino library to control radio for receiving FM broadcast signals.
-/// 
+///
 /// Currently the following chios are supported:
 /// * The SI4703 from Silicon Labs
 /// * The SI4705 from Silicon Labs
@@ -98,8 +98,8 @@ extern "C" {
 enum RADIO_BAND {
   RADIO_BAND_NONE = 0, ///< No band selected.
 
-  RADIO_BAND_FM = 1, ///< FM band 87.5 – 108 MHz (USA, Europe) selected.
-  RADIO_BAND_FMWORLD = 2, ///< FM band 76 – 108 MHz (Japan, Worldwide) selected.
+  RADIO_BAND_FM = 1, ///< FM band 87.5 ï¿½ 108 MHz (USA, Europe) selected.
+  RADIO_BAND_FMWORLD = 2, ///< FM band 76 ï¿½ 108 MHz (Japan, Worldwide) selected.
   RADIO_BAND_AM = 3, ///< AM band selected.
   RADIO_BAND_KW = 4, ///< KW band selected.
 
@@ -113,7 +113,7 @@ typedef uint16_t RADIO_FREQ;
 
 
 /// A structure that contains information about the radio features from the chip.
-typedef struct RADIO_INFO {
+struct RADIO_INFO {
   bool active;   ///< receiving is active.
   uint8_t rssi;  ///< Radio Station Strength Information.
   uint8_t snr;   ///< Signal Noise Ratio.
@@ -125,7 +125,7 @@ typedef struct RADIO_INFO {
 
 
 /// a structure that contains information about the audio features
-typedef struct AUDIO_INFO {
+struct AUDIO_INFO {
   uint8_t volume;
   bool mute;
   bool softmute;
